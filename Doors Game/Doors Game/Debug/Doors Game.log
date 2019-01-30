@@ -1,0 +1,3 @@
+﻿  Main.cpp
+c:\users\jonathan\documents\git\spring2019cecs282\doors game\doors game\main.cpp(18): warning C4101: 'doorReveal': unreferenced local variable
+  Doors Game.vcxproj -> C:\Users\Jonathan\Documents\git\Spring2019CECS282\Doors Game\Debug\Doors Game.exe
