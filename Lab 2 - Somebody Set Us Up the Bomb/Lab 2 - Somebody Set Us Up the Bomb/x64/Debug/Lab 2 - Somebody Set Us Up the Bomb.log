@@ -1,0 +1,4 @@
+﻿  Main.cpp
+c:\users\jonathan\documents\git\spring2019cecs282\lab 2 - somebody set us up the bomb\lab 2 - somebody set us up the bomb\main.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\jonathan\documents\git\spring2019cecs282\lab 2 - somebody set us up the bomb\lab 2 - somebody set us up the bomb\main.cpp(12): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  Lab 2 - Somebody Set Us Up the Bomb.vcxproj -> C:\Users\Jonathan\Documents\git\Spring2019CECS282\Lab 2 - Somebody Set Us Up the Bomb\x64\Debug\Lab 2 - Somebody Set Us Up the Bomb.exe

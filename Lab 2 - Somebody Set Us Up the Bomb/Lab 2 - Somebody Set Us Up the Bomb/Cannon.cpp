@@ -4,13 +4,13 @@
 using namespace std;
 
 double GetDistanceCovered(double userAngle, double powder) {
-	double radsAngle = userAngle * 0.0174533;
-	double time = 2 * sin(radsAngle) / (9.8);
+	double radsAngle = userAngle *(3.141592653589793238463/180);
+	double time = ((sin(radsAngle) * 30 * powder) * 2) / (9.8);
 	double horizontalDistance = cos(radsAngle) * 30 * powder * time;
 	return horizontalDistance;
 }
 
-double GetValidIntInput(int lowerBound, int upperBound) {
+double GetValidIntInput(double lowerBound, double upperBound) {
 	double userInput;
 	cin >> userInput;
 	while (userInput < lowerBound || userInput > upperBound) {
@@ -21,7 +21,8 @@ double GetValidIntInput(int lowerBound, int upperBound) {
 
 double GenerateTargetDistance(int seed) {
 	mt19937 engine(seed);
-	return engine();
+	uniform_real_distribution<> range(1.00, 1000.00);
+	return range(engine);
 }
 
-double DistanceFromTarget(int targetDistance, int horizontalDistance) { return horizontalDistance - targetDistance; }
+double DistanceFromTarget(double targetDistance, double horizontalDistance) { return horizontalDistance - targetDistance; }
