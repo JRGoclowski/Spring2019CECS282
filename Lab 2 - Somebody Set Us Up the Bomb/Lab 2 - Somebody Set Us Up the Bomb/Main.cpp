@@ -1,4 +1,5 @@
 # include <iostream>
+#include <iomanip>
 #include <cmath>
 #include "Cannon.h";
 
@@ -11,7 +12,7 @@ int main() {
 	cout << "Please input a positive integer seed value: ";
 	userSeed = GetValidIntInput(1 , 99999999);
 	distanceOfTarget = GenerateTargetDistance(userSeed);
-	cout << "The target is " << distanceOfTarget << "m away." << endl;
+	cout << "The target is " << fixed << setprecision(2) << distanceOfTarget << "m away." << endl;
 	
 	while (!gameComplete) {
 		cout << "Please input an angle between 0 and 90 degress: ";
@@ -22,10 +23,10 @@ int main() {
 
 		distanceOff = DistanceFromTarget(distanceOfTarget, GetDistanceCovered(userAngle, userGunpowder));
 		if (distanceOff < -1) {
-			cout << "You were " << abs(distanceOff) << "m short."<<endl;
+			cout << "You were " << fixed << setprecision(2) << abs(distanceOff) << "m short."<<endl;
 		}
 		else if (distanceOff > 1) {
-			cout << "You were " << distanceOff << "m long." << endl;
+			cout << "You were " << fixed << setprecision(2) << distanceOff << "m long." << endl;
 		}
 		else {
 			gameComplete = true;
