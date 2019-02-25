@@ -50,7 +50,7 @@ void GetMove(int *row, int *col) {
 // MoveIsValid returns true if the board is empty at the requested row/col,
 // and false otherwise. Used in main to see if the move is valid and alert
 // the user if it is not.
-bool MoveIsValid(std::array<std::array<char, 3>, 3> board, int row, int col) {
+bool MoveIsValid(const std::array<std::array<char, 3>, 3> &board, int row, int col) {
 	if (row > 2 || col > 2 || row < 0 || col < 0) {
 		cout << "That space is outside of board range!" << endl;
 		return false;
