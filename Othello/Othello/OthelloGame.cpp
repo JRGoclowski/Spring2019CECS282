@@ -28,7 +28,6 @@ void PrintBoard(const OthelloMatrix & board) {
 	}
 }
 
-
 bool InBounds(int row, int col) {
 	if (row < 0 || row > 7 || col < 0 || col > 7) { return false; }
 	return true;
@@ -48,59 +47,37 @@ void GetMove(int & row, int & col) {
 
 void ApplyMove(OthelloMatrix & board, int row, int col, char currentPlayer) {
 	array <int, 3> directions = { -1, 0, 1 };
-	char otherPlayer;
-	int xDirection, yDirection, xInitial = row, yInitial = col, xCurrent, yCurrent, spotCounter, playerInt, otherInt;
-	(currentPlayer == 'B') ? (otherPlayer = 'W') : (otherPlayer = 'B');
-	(currentPlayer == 'B') ? (playerInt = 1, otherInt = -1) : (playerInt = -1, otherInt = 1);
+	int xDirection, yDirection, xInitial = row, yInitial = col, xCurrent, yCurrent, spotCounter, currInt, oppInt;
+	(currentPlayer == 'B') ? (currInt = 1, oppInt = -1) : (currInt = -1, oppInt = 1);
 	for (int position = 0; position < 9; position++) {
-		//Chose a direction
 		xDirection = directions[(position / 3)];
 		yDirection = directions[(position % 3)];
-		//Start at r,c
-		//Needs some while loop
-		//Take a single step in the direction
 		xCurrent = xInitial + xDirection;
 		yCurrent = yInitial + yDirection;
 		spotCounter = 0;
-		//	(Continue while not one of three things - Ally, empty, or bounds)
-		//	If you find an enemy piece
-		while (InBounds(xCurrent,yCurrent) && board[xCurrent][yCurrent] == otherInt) {
-				//Increase Counter and repeat
+		while (InBounds(xCurrent,yCurrent) && board[xCurrent][yCurrent] == oppInt) {
 				spotCounter++;
 				xCurrent += xDirection;
 				yCurrent += yDirection;
 		}
-		//Why did you stop
-		//	If out of bounds or blank square
-		if (!InBounds(xCurrent, yCurrent) || board[xCurrent][yCurrent] == 0) {
-			//	return to top and pick a new direction	
+		if (!InBounds(xCurrent, yCurrent) || board[xCurrent][yCurrent] == 0 || spotCounter == 0) {
 			continue;
 		}
-		//	If ally it is a valid flip
-		//		if counter 0 = nothing to do, return to top
-		if (spotCounter == 0) {
-			continue;
-		}
-		//		if counter > 0 = walk back and flip
-		//			take a step back
-		//			change tile to currentPlayer
-		//			repeat for counter
-		for (spotCounter; spotCounter >= 0; spotCounter--) { //CHECK THIS AND SEE IF SETS INITAL SPACE CORRECTLY
-			board[xCurrent][yCurrent] = playerInt;
+		for (spotCounter; spotCounter >= 0; spotCounter--) { 
+			board[xCurrent][yCurrent] = currInt;
 			xCurrent -= xDirection; 
 			yCurrent -= yDirection;
 		}
-		board[xCurrent][yCurrent] = playerInt;
-		//			return to top
+		board[xCurrent][yCurrent] = currInt;
 	}
 }
 
 int GetValue(const OthelloMatrix & board)
 {
-	int boardValue;
+	int boardValue = 0;
 	for (int position = 0; position < 64; position++) {
-		if (board[position / 8][position % 8] == 'B') { boardValue++; }
-		else if (board[position / 8][position % 8] == 'W') { boardValue--; }
+		if (board[position / 8][position % 8] == 1) { boardValue++; }
+		else if (board[position / 8][position % 8] == -1) { boardValue--; }
 	}
 	return boardValue;
 }
