@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab 4 - Boarder Song", "Lab 4 - Boarder Song\Lab 4 - Boarder Song.vcxproj", "{6A5B58F8-62CF-4AB3-912F-FF1765C75482}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A5B58F8-62CF-4AB3-912F-FF1765C75482}.Debug|x64.ActiveCfg = Debug|x64
+		{6A5B58F8-62CF-4AB3-912F-FF1765C75482}.Debug|x64.Build.0 = Debug|x64
+		{6A5B58F8-62CF-4AB3-912F-FF1765C75482}.Debug|x86.ActiveCfg = Debug|Win32
+		{6A5B58F8-62CF-4AB3-912F-FF1765C75482}.Debug|x86.Build.0 = Debug|Win32
+		{6A5B58F8-62CF-4AB3-912F-FF1765C75482}.Release|x64.ActiveCfg = Release|x64
+		{6A5B58F8-62CF-4AB3-912F-FF1765C75482}.Release|x64.Build.0 = Release|x64
+		{6A5B58F8-62CF-4AB3-912F-FF1765C75482}.Release|x86.ActiveCfg = Release|Win32
+		{6A5B58F8-62CF-4AB3-912F-FF1765C75482}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {778AD351-8E71-44E9-A311-654CE9C0A96D}
+	EndGlobalSection
+EndGlobal
