@@ -35,9 +35,8 @@ bool InBounds(int row, int col) {
 
 bool IsValidMove(const OthelloMatrix & board, int row, int col) {
 	if (row == -1 && col == -1) { return true; }
-	else if (board[row][col] != 0) { return false; }
-	else if (InBounds(row, col)) { return true; }
-
+	return (InBounds(row, col) && board[row][col] == 0);
+	
 }
 
 void GetMove(int & row, int & col) {
@@ -76,8 +75,7 @@ int GetValue(const OthelloMatrix & board)
 {
 	int boardValue = 0;
 	for (int position = 0; position < 64; position++) {
-		if (board[position / 8][position % 8] == 1) { boardValue++; }
-		else if (board[position / 8][position % 8] == -1) { boardValue--; }
+		boardValue += (board[position / 8][position % 8]);
 	}
 	return boardValue;
 }

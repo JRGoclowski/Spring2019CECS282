@@ -5,18 +5,18 @@
 using namespace std;
 
 void main() {
-	array<array<char, 8>, 8> board = { 0 };
+	array<array<char, BOARD_SIZE>, BOARD_SIZE> board = { 0 };
 	int row, column, turnCount = 0;
 	char currChar;
 	bool gameOngoing = true, lastTurnPassed = false;
-	board[3][3] = -1;
-	board[3][4] = 1;
-	board[4][3] = 1;
-	board[4][4] = -1;
+	board[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2) - 1] = -1;
+	board[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2)] = 1;
+	board[(BOARD_SIZE / 2)][(BOARD_SIZE / 2) - 1] = 1;
+	board[(BOARD_SIZE / 2)][(BOARD_SIZE / 2)] = -1;
 	while (gameOngoing) {
 		((turnCount % 2) == 0) ? (currChar = 'B') : (currChar = 'W');
 		PrintBoard(board);
-		cout << endl;
+		cout << endl << endl;
 		cout << currChar << "'s Turn. Enter Move in (Row,Column) format : ";
 		GetMove(row, column);
 		while (!IsValidMove(board, row, column)) {
@@ -24,7 +24,7 @@ void main() {
 			GetMove(row, column);
 		}
 		if (row == -1 && column == -1) {
-			cout << "Turn passed!" << endl;
+			cout << "Turn passed!" << endl << endl;
 			if (lastTurnPassed) {
 				break;
 			}
