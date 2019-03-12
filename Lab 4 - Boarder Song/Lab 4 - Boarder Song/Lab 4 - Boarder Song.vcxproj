@@ -115,7 +115,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoardDirection.h" />
     <ClInclude Include="BoardPosition.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BoardDirection.cpp" />
+    <ClCompile Include="BoardPosition.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

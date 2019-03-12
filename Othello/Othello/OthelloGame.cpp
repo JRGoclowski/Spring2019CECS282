@@ -29,12 +29,13 @@ void PrintBoard(const OthelloMatrix & board) {
 }
 
 bool InBounds(int row, int col) {
-	if (row < 0 || row > 7 || col < 0 || col > 7) { return false; }
-	return true;
+	return (!(row < 0 || row > 7 || col < 0 || col > 7));
 }
 
 bool IsValidMove(const OthelloMatrix & board, int row, int col) {
-	if (row == -1 && col == -1) { return true; }
+	if (row == -1 && col == -1) { 
+		return true; 
+	}
 	return (InBounds(row, col) && board[row][col] == 0);
 	
 }
@@ -46,13 +47,13 @@ void GetMove(int & row, int & col) {
 
 void ApplyMove(OthelloMatrix & board, int row, int col, char currentPlayer) {
 	array <int, 3> directions = { -1, 0, 1 };
-	int xDirection, yDirection, xInitial = row, yInitial = col, xCurrent, yCurrent, spotCounter, currInt, oppInt;
+	int xDirection, yDirection, xCurrent, yCurrent, spotCounter, currInt, oppInt;
 	(currentPlayer == 'B') ? (currInt = 1, oppInt = -1) : (currInt = -1, oppInt = 1);
 	for (int position = 0; position < 9; position++) {
 		xDirection = directions[(position / 3)];
 		yDirection = directions[(position % 3)];
-		xCurrent = xInitial + xDirection;
-		yCurrent = yInitial + yDirection;
+		xCurrent = row + xDirection;
+		yCurrent = col + yDirection;
 		spotCounter = 0;
 		while (InBounds(xCurrent,yCurrent) && board[xCurrent][yCurrent] == oppInt) {
 				spotCounter++;
@@ -75,7 +76,7 @@ int GetValue(const OthelloMatrix & board)
 {
 	int boardValue = 0;
 	for (int position = 0; position < 64; position++) {
-		boardValue += (board[position / 8][position % 8]);
+		boardValue += ((int)(board[position / 8][position % 8]));
 	}
 	return boardValue;
 }

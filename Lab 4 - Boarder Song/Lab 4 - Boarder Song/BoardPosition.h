@@ -1,20 +1,38 @@
 #pragma once
+#include "BoardDirection.h"
 #include <ostream>;
 #include <istream>;
 #include <vector>;
 
-operator std::string() const;
+class BoardPosition {
 
-Global std::ostream& operator<< (std::ostream &lhs, BoardPosition rhs);
+private:
+	
+	char mRow, mColumn;
 
-Friend std::istream& operator>>(std::istream &lhs, BoardPosition& rhs);
+	bool InBounds(int boardSize);
 
-bool operator==(BoardPosition rhs);
+	bool InBounds(char rows, char columns);
 
-bool operator<(BoardPosition rhs);
+public: 
 
-bool InBounds(int boardSize);
+	BoardPosition(const char& row, const char& column);
+	
+	inline char& const getRow() { return mRow; }
 
-bool InBounds(int rows, int columns);
+	inline char& const getColumn() { return mColumn; }
 
-static std::vector<BoardPosition> GetRectangularPositions(int rows, int columns);
+	operator std::string() const;
+
+	friend std::istream& operator>>(std::istream &lhs, BoardPosition& rhs);
+
+	bool operator==(BoardPosition rhs);
+
+	bool operator<(BoardPosition rhs);
+
+	BoardPosition operator+(BoardDirection dir);
+
+	static std::vector<BoardPosition> GetRectangularPositions(char rows, char columns);
+};
+
+std::ostream& operator<< (std::ostream &lhs, BoardPosition rhs);
