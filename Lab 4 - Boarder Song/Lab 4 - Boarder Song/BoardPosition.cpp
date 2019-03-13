@@ -3,7 +3,7 @@
 #include <sstream>
 #include <ostream>
 
-using namespace std; //Follow up if this was allowed
+using namespace std; //TODO if this was allowed
 
 BoardPosition::BoardPosition(const char& row, const char& column) : mRow(row), mColumn(column) {
 }
@@ -18,7 +18,7 @@ bool BoardPosition::InBounds(char rows, char columns){
 	return (row < (maxRow - 1) && row > 0 && column < (maxColumn - 1) && column > 0);
 }
 
-//Follow up : getters not necessary here, defined in header, correct?
+//TODO: getters not necessary here, defined in header, correct?
 
 BoardPosition::operator std::string() const {
 	ostringstream boardPosStr;
@@ -50,9 +50,9 @@ std::vector<BoardPosition> BoardPosition::GetRectangularPositions(char rows, cha
 }
 
 std::istream & operator>>(std::istream & lhs, BoardPosition & rhs) {
-	// TODO: insert return statement here
+	
 }
 
 std::ostream & operator<<(std::ostream & lhs, BoardPosition rhs) {
-	// TODO: insert return statement here
+	return lhs << (string)rhs;
 }

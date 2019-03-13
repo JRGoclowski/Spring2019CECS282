@@ -32,7 +32,7 @@ public:
 
 	BoardPosition operator+(BoardDirection dir);
 
-	static std::vector<BoardPosition> GetRectangularPositions(char rows, char columns);
+	static std::vector<BoardPosition> GetRectangularPositions(char rows, char columns);//TODO confused as to what this does
 };
 
 std::ostream& operator<< (std::ostream &lhs, BoardPosition rhs);
