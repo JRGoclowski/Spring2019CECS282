@@ -1,8 +1,8 @@
 #pragma once
 #include "BoardDirection.h"
-#include <ostream>;
-#include <istream>;
-#include <vector>;
+#include <ostream>
+#include <istream>
+#include <vector>
 
 class BoardPosition {
 
@@ -16,11 +16,13 @@ private:
 
 public: 
 
+	BoardPosition();
+	
 	BoardPosition(const char& row, const char& column);
 	
-	inline char& const getRow() { return mRow; }
+	inline const char& getRow() { return mRow; }
 
-	inline char& const getColumn() { return mColumn; }
+	inline const char& getColumn() { return mColumn; }
 
 	operator std::string() const;
 
@@ -32,7 +34,7 @@ public:
 
 	BoardPosition operator+(BoardDirection dir);
 
-	static std::vector<BoardPosition> GetRectangularPositions(char rows, char columns);//TODO confused as to what this does
+	static std::vector<BoardPosition> GetRectangularPositions(char rows, char columns);
 };
 
 std::ostream& operator<< (std::ostream &lhs, BoardPosition rhs);

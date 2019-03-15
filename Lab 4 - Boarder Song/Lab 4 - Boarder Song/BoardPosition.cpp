@@ -1,11 +1,16 @@
 #include "BoardPosition.h"
-
+#include <string>
 #include <sstream>
 #include <ostream>
 
-using namespace std; //TODO if this was allowed
+using namespace std; 
 
-BoardPosition::BoardPosition(const char& row, const char& column) : mRow(row), mColumn(column) {
+BoardPosition::BoardPosition() 
+	: mRow(0), mColumn(0){
+}
+
+BoardPosition::BoardPosition(const char& row, const char& column) 
+	: mRow(row), mColumn(column) {
 }
 
 bool BoardPosition::InBounds(int boardSize) {
@@ -18,11 +23,15 @@ bool BoardPosition::InBounds(char rows, char columns){
 	return (row < (maxRow - 1) && row > 0 && column < (maxColumn - 1) && column > 0);
 }
 
-//TODO: getters not necessary here, defined in header, correct?
 
 BoardPosition::operator std::string() const {
 	ostringstream boardPosStr;
-	boardPosStr << "(" << mRow << ", " << mColumn << ")";
+	if (mRow >= 48 || mColumn >= 48) {
+		boardPosStr << "(" << mRow << ", " << mColumn << ")";
+	}
+	else {
+		boardPosStr << "(" << (int)mRow << ", " << (int)mColumn << ")";
+	}
 	return boardPosStr.str();
 }	
 
@@ -46,10 +55,20 @@ BoardPosition BoardPosition::operator+(BoardDirection dir) {
 }
 
 std::vector<BoardPosition> BoardPosition::GetRectangularPositions(char rows, char columns) {
-	return std::vector<BoardPosition>();
+	int rowInt = (int)rows, colInt = (int)columns;
+	vector<BoardPosition> rectPositions;
+	for (int i = 0; i < rowInt; i++) {
+		for (int j = 0; j < colInt; j++) {
+			rectPositions.push_back(BoardPosition((char)i, (char)j));
+		}
+	}
+	return rectPositions;
 }
 
 std::istream & operator>>(std::istream & lhs, BoardPosition & rhs) {
+	char frontParen, comma, endParen;
+	lhs >> frontParen >> rhs.mRow >> comma >> rhs.mColumn >> endParen;
+	return lhs;
 	
 }
 
