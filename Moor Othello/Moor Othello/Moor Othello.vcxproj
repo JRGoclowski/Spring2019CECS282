@@ -18,20 +18,10 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="OthelloGame.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="OthelloGame.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{B1F0CA2B-DE00-4A14-8B90-F7BB3E11D767}</ProjectGuid>
-    <RootNamespace>Othello</RootNamespace>
+    <ProjectGuid>{879EC739-5E1D-4117-B0CA-C558E7D66F48}</ProjectGuid>
+    <RootNamespace>MoorOthello</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -87,9 +77,6 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -98,9 +85,6 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -130,6 +114,21 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="BoardDirection.h" />
+    <ClInclude Include="BoardPosition.h" />
+    <ClInclude Include="OthelloBoard.h" />
+    <ClInclude Include="OthelloMove.h" />
+    <ClInclude Include="OthelloView.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BoardDirection.cpp" />
+    <ClCompile Include="BoardPosition.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="OthelloBoard.cpp" />
+    <ClCompile Include="OthelloMove.cpp" />
+    <ClCompile Include="OthelloView.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
