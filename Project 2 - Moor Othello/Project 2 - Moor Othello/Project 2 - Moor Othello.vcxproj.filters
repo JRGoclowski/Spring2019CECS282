@@ -15,39 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OthelloBoard.h">
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\BoardDirection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OthelloMove.h">
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\BoardPosition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OthelloView.h">
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\OthelloBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BoardDirection.h">
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\OthelloMove.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BoardPosition.h">
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\OthelloView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OthelloBoard.cpp">
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\BoardDirection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OthelloMove.cpp">
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\BoardPosition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OthelloView.cpp">
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BoardDirection.cpp">
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\OthelloBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BoardPosition.cpp">
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\OthelloMove.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\OthelloView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

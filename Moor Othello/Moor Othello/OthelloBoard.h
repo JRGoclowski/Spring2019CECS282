@@ -61,7 +61,7 @@ public:
 	Accesses the board's vector of applied moves, in FILO order. (The most-recent
 	move is last in the vector.)
 	*/
-	inline const std::vector<std::unique_ptr<OthelloMove>> GetMoveHistory() const {
+	inline const std::vector<std::unique_ptr<OthelloMove>> & GetMoveHistory() const {
 		return mHistory;
 	}
 

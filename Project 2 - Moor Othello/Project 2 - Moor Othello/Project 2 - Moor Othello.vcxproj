@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{879EC739-5E1D-4117-B0CA-C558E7D66F48}</ProjectGuid>
-    <RootNamespace>MoorOthello</RootNamespace>
+    <ProjectGuid>{16C2610F-CEEB-457C-A66D-0E6FA322A846}</ProjectGuid>
+    <RootNamespace>Project2MoorOthello</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -77,6 +77,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -85,9 +88,6 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -118,19 +118,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BoardDirection.h" />
-    <ClInclude Include="BoardPosition.h" />
-    <ClInclude Include="OthelloBoard.h" />
-    <ClInclude Include="OthelloMove.h" />
-    <ClInclude Include="OthelloView.h" />
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\BoardDirection.h" />
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\BoardPosition.h" />
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\OthelloBoard.h" />
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\OthelloMove.h" />
+    <ClInclude Include="..\..\Moor Othello\Moor Othello\OthelloView.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoardDirection.cpp" />
-    <ClCompile Include="BoardPosition.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="OthelloBoard.cpp" />
-    <ClCompile Include="OthelloMove.cpp" />
-    <ClCompile Include="OthelloView.cpp" />
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\BoardDirection.cpp" />
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\BoardPosition.cpp" />
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\main.cpp" />
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\OthelloBoard.cpp" />
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\OthelloMove.cpp" />
+    <ClCompile Include="..\..\Moor Othello\Moor Othello\OthelloView.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
