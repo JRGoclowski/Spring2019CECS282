@@ -34,10 +34,11 @@ void OthelloView::PrintBoard(std::ostream & s) const {
 
 std::unique_ptr<OthelloMove> OthelloView::ParseMove(const std::string & strFormat) {
 	int sRow, sCol;
-	char openParen, comma, space, closeParen;
+	char openParen, comma, closeParen;
 	istringstream passedString(strFormat);
-	passedString >> openParen >> sRow >> comma >> space >> sCol >> closeParen;
+	passedString >> openParen >> sRow >> comma >> sCol >> closeParen;
 	return std::move(make_unique<OthelloMove>(BoardPosition(sRow, sCol)));
+
 }
 
 std::ostream & operator<<(std::ostream & lhs, const OthelloView & rhs) {

@@ -1,16 +1,19 @@
 #include "OthelloBoard.h"
 
 
-OthelloBoard::OthelloBoard(): mValue(0), mNextPlayer(Player::BLACK) {
+OthelloBoard::OthelloBoard() :mBoard {Player::EMPTY} , mValue(0), mNextPlayer(Player::BLACK) {
+	
 	mBoard[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2) - 1] = Player::WHITE ;
 	mBoard[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2)] = Player::BLACK;
 	mBoard[(BOARD_SIZE / 2)][(BOARD_SIZE / 2) - 1] = Player::BLACK;
 	mBoard[(BOARD_SIZE / 2)][(BOARD_SIZE / 2)] = Player::WHITE;
-	//mHistory.clear(); 
+	mHistory.clear(); 
 }
+
 
 std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const {
 	auto allPositions = BoardPosition::GetRectangularPositions(BOARD_SIZE, BOARD_SIZE);
+	auto possibleMoves = std::vector<std::unique_ptr<OthelloMove>>();
 	for (BoardPosition currentPos : allPositions) {
 		for (BoardDirection currentDir : BoardDirection::CARDINAL_DIRECTIONS) {
 			int flipCounter = 0;
@@ -24,28 +27,33 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 			}
 		}
 	}
-	return std::vector<std::unique_ptr<OthelloMove>>();
+	return ;
 }
+
 
 void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
 	for (BoardDirection currentDir : BoardDirection::CARDINAL_DIRECTIONS) {
 		int flipCounter = 0;
 		auto moveWalker = m->mPosition + currentDir;
-		while (InBounds(moveWalker) && PositionIsEnemy(moveWalker, mNextPlayer) ) {
+		while (InBounds(moveWalker) && PositionIsEnemy(moveWalker, mNextPlayer)) {
 			flipCounter++;
 			moveWalker = moveWalker + currentDir;
 		}
 		if (!InBounds(moveWalker) || GetPlayerAtPosition(moveWalker) != mNextPlayer || flipCounter == 0) {
 			continue;
 		}
-		auto applyWalker = m->mPosition; //TODO check that this applies as expected
-		mBoard[applyWalker.getRow()][applyWalker.getColumn()] = mNextPlayer;
-		for (flipCounter; flipCounter >= 0; flipCounter--) {
+		auto applyWalker = m->mPosition;
+		while (!(applyWalker + currentDir == moveWalker)) {
 			applyWalker = applyWalker + currentDir;
 			mBoard[applyWalker.getRow()][applyWalker.getColumn()] = mNextPlayer;
+			mValue = mValue + 2*(static_cast <int> (mNextPlayer));
 		}
+		m->AddFlipSet(OthelloMove::FlipSet::FlipSet((char)flipCounter, currentDir));
 	}
-
+	mBoard[m->mPosition.getRow()][m->mPosition.getColumn()] = mNextPlayer;
+	mValue = mValue + static_cast <int> (mNextPlayer);
+	(mNextPlayer == Player::BLACK) ? (mNextPlayer = Player::WHITE) : (mNextPlayer = Player::BLACK);
+	mHistory.push_back(std::move(m));
 }
 
 void OthelloBoard::UndoLastMove()

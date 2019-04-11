@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int main_(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
 	// Initialization
 	auto board = std::make_shared<OthelloBoard>(); // the state of the game board
 	OthelloView v(board); // a View for outputting the board via operator<<

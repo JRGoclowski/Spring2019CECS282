@@ -36,6 +36,7 @@ public:
 	*/
 	std::vector<std::unique_ptr<OthelloMove>> GetPossibleMoves() const;
 
+
 	/*
 	Applies a valid move to the board, updating the board state accordingly.
 	You may assume that this move is valid, and is consistent with the list
@@ -61,7 +62,7 @@ public:
 	Accesses the board's vector of applied moves, in FILO order. (The most-recent
 	move is last in the vector.)
 	*/
-	inline const std::vector<std::unique_ptr<OthelloMove>> GetMoveHistory() const {
+	inline const std::vector<std::unique_ptr<OthelloMove>> & GetMoveHistory() const {
 		return mHistory;
 	}
 
@@ -87,7 +88,7 @@ private:
 
 	// A history of moves applied to the board.
 	std::vector<std::unique_ptr<OthelloMove>> mHistory;
-
+	
 	// The current value of the board. Updates after every apply/undo.
 	int mValue;
 
