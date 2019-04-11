@@ -1,6 +1,8 @@
 #include "OthelloBoard.h"
 #include "OthelloView.h"
 #include "OthelloMove.h"
+#include "BoardPosition.h"
+#include "BoardDirection.h"
 #include <iostream>
 #include <string>
 #include <sstream>

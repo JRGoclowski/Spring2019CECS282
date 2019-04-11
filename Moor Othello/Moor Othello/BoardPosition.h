@@ -10,12 +10,6 @@ private:
 	
 	char mRow, mColumn;
 
-	bool InBounds(int boardSize);
-
-	bool InBounds(char rows, char columns);
-
-	friend class OthelloBoard;
-
 public: 
 
 	BoardPosition();
@@ -25,6 +19,10 @@ public:
 	inline const char& getRow() const { return mRow; }
 
 	inline const char& getColumn() const { return mColumn; }
+	
+	bool InBounds(char rows, char columns);
+
+	bool InBounds(int boardSize);
 
 	operator std::string() const;
 
