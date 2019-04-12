@@ -36,14 +36,8 @@ std::unique_ptr<OthelloMove> OthelloView::ParseMove(const std::string & strForma
 	int sRow, sCol;
 	char openParen, comma, closeParen;
 	istringstream passedString(strFormat);
-<<<<<<< HEAD
 	passedString >> openParen >> sRow >> comma >> sCol >> closeParen;
 	return std::move(make_unique<OthelloMove>(BoardPosition(sRow, sCol)));
-
-=======
-	passedString >> openParen >> sRow >> comma >> space >> sCol >> closeParen;
-	return make_unique<OthelloMove>(BoardPosition(sRow, sCol));
->>>>>>> b4d5193de5c17bb4fdbb1d6c95ffe1ebcf930621
 }
 
 std::ostream & operator<<(std::ostream & lhs, const OthelloView & rhs) {

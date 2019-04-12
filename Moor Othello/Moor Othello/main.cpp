@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 	// Start with this DEBUGGING CODE to make sure your basic OthelloMove and 
 	// OthelloBoard classes work, then remove it when you are ready to work
 	// on the real main.
-	cout << "Initial board:" << endl;
+	/*cout << "Initial board:" << endl;
 	cout << v << endl;
 	unique_ptr<OthelloMove> m{ v.ParseMove("(3, 2)") };
 	cout << "Applying the move " << *m << endl;
@@ -40,15 +40,19 @@ int main(int argc, char* argv[]) {
 	cout << endl << v << endl;
 
 	// END OF DEBUGGING CODE
-
+	*/
 	// Main loop
 	do {
 		// Print the game board using the OthelloView object
-
+		cout << v << endl;
 	   // Print all possible moves
-
+		std::vector<unique_ptr<OthelloMove>> possibleMoves = board->GetPossibleMoves();
+		
+		for (auto moveWalker = possibleMoves.begin(); moveWalker != possibleMoves.end(); moveWalker++) {
+			cout << **moveWalker << " ";
+		}
 	   // Ask to input a command
-
+		cin >> userInput;
 	   // Command loop:
 		  // move (r,c)
 		  // undo n

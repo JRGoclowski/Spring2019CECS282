@@ -15,6 +15,9 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 	auto allPositions = BoardPosition::GetRectangularPositions(BOARD_SIZE, BOARD_SIZE);
 	auto possibleMoves = std::vector<std::unique_ptr<OthelloMove>>();
 	for (BoardPosition currentPos : allPositions) {
+		if (GetPlayerAtPosition(currentPos) != Player::EMPTY) {
+			continue;
+		}
 		for (BoardDirection currentDir : BoardDirection::CARDINAL_DIRECTIONS) {
 			int flipCounter = 0;
 			auto moveWalker = currentPos + currentDir;
@@ -22,14 +25,27 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 				flipCounter++;
 				moveWalker = moveWalker + currentDir;
 			}
-			if (!InBounds(moveWalker) || GetPlayerAtPosition(moveWalker) != mNextPlayer || flipCounter == 0) {
-				continue;
+			if (InBounds(moveWalker) && flipCounter > 0) {
+				if (GetPlayerAtPosition(moveWalker) == mNextPlayer) {
+					possibleMoves.push_back(std::make_unique<OthelloMove>(currentPos));
+				}
 			}
 		}
 	}
-	return ;
+	return possibleMoves;
 }
 
+/*			
+			if (InBounds(moveWalker) || GetPlayerAtPosition(moveWalker) == mNextPlayer || flipCounter > 0) {
+				possibleBoardPosition.push_back(currentPos);
+			}
+		}
+	}
+	auto possibleMoves = std::vector<std::unique_ptr<OthelloMove>>();
+	for (BoardPosition backPosition : possibleBoardPosition){
+		possibleMoves.push_back(std::move(std::make_unique<OthelloMove>(backPosition)));
+	}
+	return possibleMoves;*/
 
 void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
 	for (BoardDirection currentDir : BoardDirection::CARDINAL_DIRECTIONS) {
