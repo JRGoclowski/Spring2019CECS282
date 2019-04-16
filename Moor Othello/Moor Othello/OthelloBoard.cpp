@@ -72,6 +72,15 @@ void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
 	mHistory.push_back(std::move(m));
 }
 
-void OthelloBoard::UndoLastMove()
-{
+void OthelloBoard::UndoLastMove() {
+	std::unique_ptr<OthelloMove> lastMove = std::move(*mHistory.end());
+	mHistory.pop_back();//TODO does this remove an empty pounter, or what
+	for (OthelloMove::FlipSet currentFlips : lastMove->mFlips) {
+		BoardPosition currentPos = lastMove->mPosition + currentFlips.mDirection;
+		for (int i = 0; i < (int)currentFlips.mFlipCount; i++) {
+			mBoard[currentPos.getRow()][currentPos.getColumn()] = mNextPlayer;
+			currentPos = currentPos + currentFlips.mDirection;
+		}
+	}
+	mBoard[lastMove->mPosition.getRow()][lastMove->mPosition.getColumn()] = mNextPlayer;
 }
