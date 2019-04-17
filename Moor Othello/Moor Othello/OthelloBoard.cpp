@@ -32,7 +32,7 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 			}
 		}
 	}
-	return possibleMoves;
+	return std::move(possibleMoves);
 }
 
 /*			
@@ -48,39 +48,45 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 	return possibleMoves;*/
 
 void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
-	for (BoardDirection currentDir : BoardDirection::CARDINAL_DIRECTIONS) {
-		int flipCounter = 0;
-		auto moveWalker = m->mPosition + currentDir;
-		while (InBounds(moveWalker) && PositionIsEnemy(moveWalker, mNextPlayer)) {
-			flipCounter++;
-			moveWalker = moveWalker + currentDir;
+	if (!(m->IsPass())) {
+		for (BoardDirection currentDir : BoardDirection::CARDINAL_DIRECTIONS) {
+			int flipCounter = 0;
+			auto moveWalker = m->mPosition + currentDir;
+			while (InBounds(moveWalker) && PositionIsEnemy(moveWalker, mNextPlayer)) {
+				flipCounter++;
+				moveWalker = moveWalker + currentDir;
+			}
+			if (InBounds(moveWalker) && GetPlayerAtPosition(moveWalker) == mNextPlayer && flipCounter > 0) {
+				auto applyWalker = m->mPosition;
+				while (!(applyWalker + currentDir == moveWalker)) {
+					applyWalker = applyWalker + currentDir;
+					mBoard[applyWalker.getRow()][applyWalker.getColumn()] = mNextPlayer;
+					mValue = mValue + 2 * (static_cast <int> (mNextPlayer));
+				}
+				m->AddFlipSet(OthelloMove::FlipSet::FlipSet((char)flipCounter, currentDir));
+			}
 		}
-		if (!InBounds(moveWalker) || GetPlayerAtPosition(moveWalker) != mNextPlayer || flipCounter == 0) {
-			continue;
-		}
-		auto applyWalker = m->mPosition;
-		while (!(applyWalker + currentDir == moveWalker)) {
-			applyWalker = applyWalker + currentDir;
-			mBoard[applyWalker.getRow()][applyWalker.getColumn()] = mNextPlayer;
-			mValue = mValue + 2*(static_cast <int> (mNextPlayer));
-		}
-		m->AddFlipSet(OthelloMove::FlipSet::FlipSet((char)flipCounter, currentDir));
+		mBoard[m->mPosition.getRow()][m->mPosition.getColumn()] = mNextPlayer;
+		mValue = mValue + static_cast <int> (mNextPlayer);
 	}
-	mBoard[m->mPosition.getRow()][m->mPosition.getColumn()] = mNextPlayer;
-	mValue = mValue + static_cast <int> (mNextPlayer);
 	(mNextPlayer == Player::BLACK) ? (mNextPlayer = Player::WHITE) : (mNextPlayer = Player::BLACK);
 	mHistory.push_back(std::move(m));
 }
 
 void OthelloBoard::UndoLastMove() {
-	std::unique_ptr<OthelloMove> lastMove = std::move(*mHistory.end());
-	mHistory.pop_back();//TODO does this remove an empty pounter, or what
-	for (OthelloMove::FlipSet currentFlips : lastMove->mFlips) {
-		BoardPosition currentPos = lastMove->mPosition + currentFlips.mDirection;
-		for (int i = 0; i < (int)currentFlips.mFlipCount; i++) {
-			mBoard[currentPos.getRow()][currentPos.getColumn()] = mNextPlayer;
-			currentPos = currentPos + currentFlips.mDirection;
+	auto lastMove = **(--mHistory.end());
+	(mNextPlayer == Player::BLACK) ? (mNextPlayer = Player::WHITE) : (mNextPlayer = Player::BLACK);
+	//TODO does this remove an empty pounter, or what
+	if (!(lastMove.IsPass())) {
+		for (OthelloMove::FlipSet currentFlips : lastMove.mFlips) {
+			BoardPosition currentPos = lastMove.mPosition + currentFlips.mDirection;
+			for (int i = 0; i < (int)currentFlips.mFlipCount; i++) {
+				mBoard[currentPos.getRow()][currentPos.getColumn()] = mNextPlayer;
+				mValue = mValue - 2 * (static_cast <int> (mNextPlayer));
+				currentPos = currentPos + currentFlips.mDirection;
+			}
 		}
+		mBoard[lastMove.mPosition.getRow()][lastMove.mPosition.getColumn()] = mNextPlayer;
 	}
-	mBoard[lastMove->mPosition.getRow()][lastMove->mPosition.getColumn()] = mNextPlayer;
+	mHistory.pop_back();	
 }

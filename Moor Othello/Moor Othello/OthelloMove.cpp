@@ -10,6 +10,6 @@ bool OthelloMove::operator==(const OthelloMove & rhs) {
 // TODO check this is the correct format
 OthelloMove::operator std::string() const {
 	std::ostringstream moveStr;
-	moveStr << "(" << (int) mPosition.getRow() << "," << (int) mPosition.getColumn() << ")";
+	moveStr << "(" << (int) mPosition.getRow() << ", " << (int) mPosition.getColumn() << ")";
 	return moveStr.str();
 }
