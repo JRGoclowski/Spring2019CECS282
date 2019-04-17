@@ -2,7 +2,6 @@
 
 
 OthelloBoard::OthelloBoard() :mBoard {Player::EMPTY} , mValue(0), mNextPlayer(Player::BLACK) {
-	
 	mBoard[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2) - 1] = Player::WHITE ;
 	mBoard[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2)] = Player::BLACK;
 	mBoard[(BOARD_SIZE / 2)][(BOARD_SIZE / 2) - 1] = Player::BLACK;
@@ -35,18 +34,6 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 	return std::move(possibleMoves);
 }
 
-/*			
-			if (InBounds(moveWalker) || GetPlayerAtPosition(moveWalker) == mNextPlayer || flipCounter > 0) {
-				possibleBoardPosition.push_back(currentPos);
-			}
-		}
-	}
-	auto possibleMoves = std::vector<std::unique_ptr<OthelloMove>>();
-	for (BoardPosition backPosition : possibleBoardPosition){
-		possibleMoves.push_back(std::move(std::make_unique<OthelloMove>(backPosition)));
-	}
-	return possibleMoves;*/
-
 void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
 	if (!(m->IsPass())) {
 		for (BoardDirection currentDir : BoardDirection::CARDINAL_DIRECTIONS) {
@@ -74,19 +61,21 @@ void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
 }
 
 void OthelloBoard::UndoLastMove() {
-	auto lastMove = **(--mHistory.end());
-	(mNextPlayer == Player::BLACK) ? (mNextPlayer = Player::WHITE) : (mNextPlayer = Player::BLACK);
+	auto lastMove = **(mHistory.rbegin());
 	//TODO does this remove an empty pounter, or what
 	if (!(lastMove.IsPass())) {
 		for (OthelloMove::FlipSet currentFlips : lastMove.mFlips) {
 			BoardPosition currentPos = lastMove.mPosition + currentFlips.mDirection;
 			for (int i = 0; i < (int)currentFlips.mFlipCount; i++) {
 				mBoard[currentPos.getRow()][currentPos.getColumn()] = mNextPlayer;
-				mValue = mValue - 2 * (static_cast <int> (mNextPlayer));
+				mValue = mValue + (2 * (static_cast <int> (mNextPlayer)));
 				currentPos = currentPos + currentFlips.mDirection;
 			}
 		}
-		mBoard[lastMove.mPosition.getRow()][lastMove.mPosition.getColumn()] = mNextPlayer;
+		mValue = mValue + (static_cast <int> (mNextPlayer));
+		mBoard[lastMove.mPosition.getRow()][lastMove.mPosition.getColumn()] = Player::EMPTY;
+		
 	}
+	(mNextPlayer == Player::BLACK) ? (mNextPlayer = Player::WHITE) : (mNextPlayer = Player::BLACK);
 	mHistory.pop_back();	
 }

@@ -16,7 +16,7 @@ BoardPosition::BoardPosition(const char& row, const char& column)
 
 bool BoardPosition::InBounds(int boardSize) {
 	int row = (int)mRow, column = (int)mColumn;
-	return (row < (boardSize - 1) && row > 0 && column < (boardSize - 1) && column > 0);
+	return (row < (boardSize) && row >= 0 && column < (boardSize) && column >= 0);
 }
 
 bool BoardPosition::InBounds(char rows, char columns){
