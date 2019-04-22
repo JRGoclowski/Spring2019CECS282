@@ -12,7 +12,6 @@ OthelloBoard::OthelloBoard() :mBoard {Player::EMPTY} , mValue(0), mNextPlayer(Pl
 
 std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const {
 	auto possMoves = std::vector<std::unique_ptr<OthelloMove>>();
-
 	for (BoardPosition currentPos : BoardPosition::GetRectangularPositions(BOARD_SIZE, BOARD_SIZE)) {
 		if (GetPlayerAtPosition(currentPos) != Player::EMPTY) {
 			continue;
@@ -31,6 +30,9 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 				}
 			}
 		}
+	}
+	if (possMoves.empty()) {
+		possMoves.push_back(std::make_unique<OthelloMove>(BoardPosition(-1, -1));
 	}
 	return std::move(possMoves);
 }
