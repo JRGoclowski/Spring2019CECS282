@@ -11,9 +11,9 @@ OthelloBoard::OthelloBoard() :mBoard {Player::EMPTY} , mValue(0), mNextPlayer(Pl
 
 
 std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const {
-	auto allPositions = BoardPosition::GetRectangularPositions(BOARD_SIZE, BOARD_SIZE);
-	auto possibleMoves = std::vector<std::unique_ptr<OthelloMove>>();
-	for (BoardPosition currentPos : allPositions) {
+	auto possMoves = std::vector<std::unique_ptr<OthelloMove>>();
+
+	for (BoardPosition currentPos : BoardPosition::GetRectangularPositions(BOARD_SIZE, BOARD_SIZE)) {
 		if (GetPlayerAtPosition(currentPos) != Player::EMPTY) {
 			continue;
 		}
@@ -26,12 +26,13 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 			}
 			if (InBounds(moveWalker) && flipCounter > 0) {
 				if (GetPlayerAtPosition(moveWalker) == mNextPlayer) {
-					possibleMoves.push_back(std::make_unique<OthelloMove>(currentPos));
+					possMoves.push_back(std::make_unique<OthelloMove>(currentPos));
+					break;
 				}
 			}
 		}
 	}
-	return std::move(possibleMoves);
+	return std::move(possMoves);
 }
 
 void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
@@ -62,7 +63,6 @@ void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
 
 void OthelloBoard::UndoLastMove() {
 	auto lastMove = **(mHistory.rbegin());
-	//TODO does this remove an empty pounter, or what
 	if (!(lastMove.IsPass())) {
 		for (OthelloMove::FlipSet currentFlips : lastMove.mFlips) {
 			BoardPosition currentPos = lastMove.mPosition + currentFlips.mDirection;

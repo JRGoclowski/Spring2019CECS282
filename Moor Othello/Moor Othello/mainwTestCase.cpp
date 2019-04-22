@@ -17,7 +17,87 @@ int main(int argc, char* argv[]) {
 	OthelloView v(board); // a View for outputting the board via operator<<
 	string userInput, currPlay; // a string to hold the user's command choice
 	bool isValidMove = false, continuePlaying = true, lastMovePass = false;
+	vector<std::string> testCase = {
+		"move (2, 3)",
+		"move (2, 2)",
+		"move (3, 2)",
+		"move (4, 2)",
+		"move (3, 1)",
+		"move (2, 1)",
+		"move (1, 1)",
+		"move (0, 0)",
+		"showHistory",
+		"move (0, 1)",
+		"move (0, 2)",
+		"move (4, 1)",
+		"move (5, 1)",
+		"move (1, 0)",
+		"move (2, 0)",
+		"move (3, 0)",
+		"move (4, 0)",
+		"move (5, 0)",
+		"move (6, 0)",
+		"move (6, 1)",
+		"move (7, 1)",
+		"move (5, 2)",
+		"move (6, 5)",
+		"move (6, 2)",
+		"move (4, 5)",
+		"move (5, 3)",
+		"move (6, 3)",
+		"move (5, 4)",
+		"undo 1",
+		"move (6, 4)",
+		"move (7, 3)",
+		"undo 2",
+		"move (5, 4)",
+		"move (6, 4)",
+		"move (7, 3)",
+		"move (7, 2)",
+		"move (7, 4)",
+		"move (7, 0)",
+		"move (6, 5)",
+		"move (1, 2)",
+		"move (1, 3)",
+		"move (1, 4)",
+		"undo 1",
+		"move (7, 5)",
+		"move (5, 5)",
+		"move (6, 6)",
+		"move (6, 7)",
+		"move (5, 6)",
+		"move (7, 6)",
+		"move (7, 7)",
+		"move (3, 6)",
+		"move (2, 7)",
+		"move (2, 5)",
+		"move (0, 3)",
+		"move (0, 4)",
+		"move (5, 7)",
+		"move (1, 4)",
+		"move (2, 4)",
+		"move (1, 5)",
+		"move (1, 6)",
+		"move (2, 6)",
+		"move pass",
+		"move (0, 7)",
+		"move (0, 5)",
+		"move (0, 6)",
+		"move pass",
+		"move (4, 6)",
+		"move (3, 5)",
+		"move (3, 7)",
+		"move (4, 7)",
+		"move pass",
+		"move (1, 7)",
+		"showHistory",
+		"showValue",
+		"move pass",
+		"move pass" };
+	auto inputItr = testCase.begin();
 	do {
+		userInput = *inputItr;
+		inputItr++;
 		isValidMove = false;
 		cout << v << endl << "Possible Moves: " << endl;
 	   	std::vector<unique_ptr<OthelloMove>> possibleMoves = board->GetPossibleMoves();
@@ -25,7 +105,7 @@ int main(int argc, char* argv[]) {
 			cout << **moveWalker << " ";
 		}
 		cout << endl << "[move (r, c)][undo n][showValue][showHistory][quit]" << endl << "Please input action:" ;
- 		getline(cin, userInput);
+ 		//getline(cin, userInput);
 		cout << "Debug statment: Input was " << userInput << endl << endl << endl;
 		if (userInput.substr(0, 4) == "move") {
 			if (userInput.substr(5, userInput.capacity()) == "pass") {
@@ -42,7 +122,7 @@ int main(int argc, char* argv[]) {
 				}
 			}
 			if (isValidMove) {
-				board->ApplyMove(std::move(v.ParseMove(userInput.substr(5, userInput.capacity()))));
+				board->ApplyMove(std::move(v.ParseMove(userInput.substr(5, 6))));
 			}
 			else {
 				cout << endl << "That was not a move option";
@@ -50,13 +130,16 @@ int main(int argc, char* argv[]) {
 			lastMovePass = false;
 		}
 		else if (userInput.substr(0, 4) == "undo") {
-			int moveCount = board->GetMoveHistory().capacity();
-			if ((stoi(userInput.substr(5, userInput.capacity())) <= moveCount)) {
-				moveCount = (stoi(userInput.substr(5, userInput.capacity())));
-			}
-			for (int i = 0; i < moveCount; i++) {
-				if (!(board->GetMoveHistory().empty())) {
-					board->UndoLastMove();
+			if (!(board->GetMoveHistory().empty())) {
+				if (!(stoi(userInput.substr(5, userInput.capacity())) >= board->GetMoveHistory().capacity())) {
+					for (int i = 0; i < stoi(userInput.substr(5, userInput.capacity())); i++) {
+						board->UndoLastMove();
+					}
+				}
+				else {
+					for (int i = 0; i < board->GetMoveHistory().capacity(); i++) {
+						board->UndoLastMove();
+					}
 				}
 			}
 		}
@@ -82,6 +165,6 @@ int main(int argc, char* argv[]) {
 			cout << endl << "That was not a valid input, please input a proper input";
 		}
 		cout << endl;
-	} while (continuePlaying);
+	} while (continuePlaying); // you may want to change the condition
 	
 }
