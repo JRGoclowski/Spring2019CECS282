@@ -4,7 +4,7 @@ using namespace std;
 
 
 
-int main(int, char* []) {
+int main(int, char*[]) {
 	TemplateLinkedList<int> intList = TemplateLinkedList<int>();
 	TemplateLinkedList<string> stringList = TemplateLinkedList<string>();
 	TemplateLinkedList<unique_ptr<string>> ptrList = TemplateLinkedList<unique_ptr<string>>();
@@ -14,13 +14,13 @@ int main(int, char* []) {
 	cout << "Pushing 5 to int list to front" << endl;
 	intList.PushFront(5);
 	cout << "Pushing 1 to int list to back " << endl;
-	intList.PushBack(1); 
+	intList.PushBack(1);
 	cout << "Pushing 5 to int list to front" << endl;
 	intList.PushFront(5);
 	intList.PrintList();
 
 	cout << "Pushing \"Hello \" to string list in back" << endl;
-	stringList.PushBack("Hello ");
+	stringList.PushBack("Hello");
 	cout << "Pushing \"World\" to string list in back" << endl;
 	stringList.PushBack("World");
 	cout << "Pushing \"I say, \" to string list in front" << endl;
@@ -65,7 +65,7 @@ int main(int, char* []) {
 	intList.PrintList();
 	stringList.PopFront();
 	stringList.PrintList();
-	ptrList.PopFront();	
+	ptrList.PopFront();
 	ptrList.PrintList();
 
 	cout << "Removing Last from int list, then string list, then pointer list";

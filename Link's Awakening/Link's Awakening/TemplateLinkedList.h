@@ -22,7 +22,7 @@ private:
 	int mSize;
 
 public:
-	ModernLinkedList() : mSize(0) {}
+	TemplateLinkedList() : mSize(0) {}
 	inline int Size() const { return mSize; };
 
 	// Methods to insert new data.
@@ -48,7 +48,7 @@ public:
 	// Retrieves the data item at the given index, by walking the list to that position
 	// and returning the data in the Node at that index. Can also be used to "set" the value
 	// at the given index, if that index exists.
-	int& operator[](int index);
+	TData& operator[](int index);
 
 
 	// Prints the entire list for debugging.
@@ -177,7 +177,7 @@ void TemplateLinkedList<TData>::Clear() {
 }
 
 template <typename TData>
-int& TemplateLinkedList<TData>::operator[](int index)
+TData& TemplateLinkedList<TData>::operator[](int index)
 {
 	Node* temp = mHead.get();
 	for (int i = 0; i < index; i++) {
@@ -206,4 +206,3 @@ void TemplateLinkedList<TData>::PrintList() const {
 	}
 	std::cout << "]" << std::endl;
 }
-
