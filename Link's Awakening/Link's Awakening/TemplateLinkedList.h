@@ -25,7 +25,7 @@ public:
 	TemplateLinkedList() : mSize(0) {}
 	inline int Size() const { return mSize; };
 
-	void TemplateLinkedList<TData>::PushBack(TData value) {
+	void PushBack(TData value) {
 		auto newNode = std::make_unique<Node>(std::move(value));
 
 		if (mSize == 0) {
@@ -44,14 +44,14 @@ public:
 		}
 	}
 
-	void TemplateLinkedList<TData>::PushFront(TData value) {
+	void PushFront(TData value) {
 		auto newNode = std::make_unique<Node>(std::move(value));
 		newNode->mNext = std::move(mHead);
 		mHead = std::move(newNode);
 		mSize++;
 	}
 
-	void TemplateLinkedList<TData>::Insert(int index, TData value) {
+	void Insert(int index, TData value) {
 		if (index > (mSize - 1)) {
 			std::cout << "Index not in bounds" << std::endl;
 			return;
@@ -77,7 +77,7 @@ public:
 
 	}
 
-	void TemplateLinkedList<TData>::PopBack() {
+	void PopBack() {
 		if (mSize == 1) {
 			// Set head to nullptr, which destroys the only remaining node.
 			// Reminder: to change ownership, use std::move.
@@ -98,13 +98,13 @@ public:
 		}
 	}
 
-	void TemplateLinkedList<TData>::PopFront() {
+	void PopFront() {
 		Node* temp = mHead.get();
 		mHead = std::move(temp->mNext);
 		mSize--;
 	}
 
-	void TemplateLinkedList<TData>::RemoveAt(int index) {
+	void RemoveAt(int index) {
 		if (index > (mSize - 1)) {
 			std::cout << "Index not in bounds" << std::endl;
 			return;
@@ -132,7 +132,7 @@ public:
 		mSize = 0;
 	}
 
-	TData& TemplateLinkedList<TData>::operator[](int index)
+	TData& operator[](int index)
 	{
 		Node* temp = mHead.get();
 		for (int i = 0; i < index; i++) {
@@ -141,7 +141,7 @@ public:
 		return temp->mData;
 	}
 
-	void TemplateLinkedList<TData>::PrintList() const {
+	void PrintList() const {
 		// To walk this list, we need to create a temp that points to the head node, and then gets moved
 		// to the next, to the next, etc. This temp does not want to claim ownership of any of these nodes,
 		// so it can't be a unique_ptr. A "raw" Node pointer will let us "use" each Node's values without
