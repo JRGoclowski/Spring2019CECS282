@@ -27,12 +27,12 @@ public:
 
 	// Methods to insert new data.
 	// Adds a new "last" item.
-	void PushBack(TData value);
+	void PushBack(TData& value);
 	// Adds a new "first" item.
-	void PushFront(TData value);
+	void PushFront(TData& value);
 	// Adds a new item at the given index, so that the given value can be retrieved at that index.
 	// All values that that index or larger are "moved back" by 1.
-	void Insert(int index, TData value);
+	void Insert(int index, TData& value);
 
 	// Methods to remove data.
 	// Remove the "last" item.
@@ -58,7 +58,7 @@ public:
 
 
 template<typename TData>
-void TemplateLinkedList<TData>::PushBack(TData value) {
+void TemplateLinkedList<TData>::PushBack(TData& value) {
 	auto newNode = std::make_unique<Node>(std::move(value));
 
 	if (mSize == 0) {
@@ -78,7 +78,7 @@ void TemplateLinkedList<TData>::PushBack(TData value) {
 }
 
 template <typename TData>
-void TemplateLinkedList<TData>::PushFront(TData value) {
+void TemplateLinkedList<TData>::PushFront(TData& value) {
 	auto newNode = std::make_unique<Node>(std::move(value));
 	// Any time we change a link, we must use std::move.
 	newNode->mNext = std::move(mHead);
@@ -91,20 +91,20 @@ void TemplateLinkedList<TData>::PushFront(TData value) {
 }
 
 template <typename TData>
-void TemplateLinkedList<TData>::Insert(int index, TData value) {
+void TemplateLinkedList<TData>::Insert(int index, TData& value) {
 	if (index > (mSize - 1)) {
 		std::cout << "Index not in bounds" << std::endl;
 		return;
 	}
 	else if (index == 0) {
-		PushFront(value);
+		PushFront(std::move(value));
 		return;
 	}
 	else if (index == (mSize - 1)) {
-		PushBack(value);
+		PushBack(std::move(value));
 		return;
 	}
-	auto newNode = std::make_unique<Node>(value);
+	auto newNode = std::make_unique<Node>(std::move(value));
 	Node* prev = mHead.get();
 	Node* temp = mHead.get();
 	for (int i = 0; i < index - 1; i++) {
