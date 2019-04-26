@@ -57,7 +57,7 @@ public:
 			return;
 		}
 		else if (index == 0) {
-			PushFront(value);
+			PushFront(std::move(value));
 			return;
 		}
 		else if (index == (mSize - 1)) {
@@ -127,7 +127,7 @@ public:
 		mSize--;
 	}
 
-	void TemplateLinkedList<TData>::Clear() {
+	void Clear() {
 		mHead = std::move(nullptr);
 		mSize = 0;
 	}

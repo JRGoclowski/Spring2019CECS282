@@ -19,35 +19,41 @@ int main(int, char* []) {
 	intList.PushFront(5);
 	intList.PrintList();
 
-	cout << "Pushing \"Hello \" to string list in back" << endl;
-	stringList.PushBack("Hello ");
+	cout << "Pushing \"Hello\" to string list in back" << endl;
+	stringList.PushBack("Hello");
 	cout << "Pushing \"World\" to string list in back" << endl;
 	stringList.PushBack("World");
-	cout << "Pushing \"I say, \" to string list in front" << endl;
+	cout << "Pushing \"I say,\" to string list in front" << endl;
 	stringList.PushFront("I say, ");
-	cout << "Pushing \"Joyously \" to string list in front" << endl;
-	stringList.PushFront("Joyously ");
+	cout << "Pushing \"Joyously\" to string list in front" << endl;
+	stringList.PushFront("Joyously");
 	stringList.PrintList();
 	
-	cout << "Pushing pointer to \" to \" to pointer list in front" << endl;
-	ptrList.PushFront(make_unique<string>(" to "));
+	cout << "Pushing pointer to \"to\" to pointer list in front" << endl;
+	ptrList.PushFront(make_unique<string>("to"));
 	cout << "Pushing pointer to \"Pointed\" to pointer list in front" << endl;
 	ptrList.PushFront(make_unique<string>("Pointed"));
 	cout << "Pushing pointer to \"String\" to pointer list in back" << endl;
 	ptrList.PushBack(make_unique<string>("String"));
 	ptrList.PrintList();
+	for (int i = 0; i < 3; i++) {
+		cout << *ptrList[i] << endl;
+	}
 	
 	cout << "Inserting 3 to int list to index 2" << endl;
 	intList.Insert(2, 3);
 	intList.PrintList();
 
-	cout << "Inserting \"Beautiful \" to string list to index 3" << endl;
-	stringList.Insert(3, "Beautiful ");
+	cout << "Inserting \"Oh\" to string list to index 2" << endl;
+	stringList.Insert(2, "Oh");
 	stringList.PrintList();
 
-	cout << "Inserting \"this \" to pointer list to index 2" << endl;
+	cout << "Inserting \"this\" to pointer list to index 2" << endl;
 	ptrList.Insert(2, make_unique<string>("this"));
 	ptrList.PrintList();
+	for (int i = 0; i < 4; i++) {
+		cout << *ptrList[i] << endl;
+	}
 
 	cout << "Getting [1] in each list" << endl;
 	cout << intList[1] << ", " << stringList[1] << ", " << ptrList[1] << endl;
