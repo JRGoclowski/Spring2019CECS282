@@ -59,7 +59,7 @@ public:
 
 template<typename TData>
 void TemplateLinkedList<TData>::PushBack(TData value) {
-	auto newNode = std::make_unique<Node>(value);
+	auto newNode = std::make_unique<Node>(std::move(value));
 
 	if (mSize == 0) {
 		mHead = std::move(newNode);
@@ -79,7 +79,7 @@ void TemplateLinkedList<TData>::PushBack(TData value) {
 
 template <typename TData>
 void TemplateLinkedList<TData>::PushFront(TData value) {
-	auto newNode = std::make_unique<Node>(value);
+	auto newNode = std::make_unique<Node>(std::move(value));
 	// Any time we change a link, we must use std::move.
 	newNode->mNext = std::move(mHead);
 
@@ -97,13 +97,11 @@ void TemplateLinkedList<TData>::Insert(int index, TData value) {
 		return;
 	}
 	else if (index == 0) {
-		TData addition = std::move(value);
-		PushFront(addition);
+		PushFront(value);
 		return;
 	}
 	else if (index == (mSize - 1)) {
-		TData addition = std::move(value);
-		PushBack(addition);
+		PushBack(value);
 		return;
 	}
 	auto newNode = std::make_unique<Node>(value);
