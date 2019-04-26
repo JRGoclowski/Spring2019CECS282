@@ -28,7 +28,7 @@ int main(int, char* []) {
 	cout << "Pushing \"Joyously \" to string list in front" << endl;
 	stringList.PushFront("Joyously ");
 	stringList.PrintList();
-
+	/*
 	cout << "Pushing pointer to \" to \" to pointer list in front" << endl;
 	ptrList.PushFront(make_unique<string>(" to "));
 	cout << "Pushing pointer to \"Pointed\" to pointer list in front" << endl;
@@ -36,7 +36,7 @@ int main(int, char* []) {
 	cout << "Pushing pointer to \"String\" to pointer list in back" << endl;
 	ptrList.PushBack(make_unique<string>("String"));
 	ptrList.PrintList();
-
+	*/
 	cout << "Inserting 3 to int list to index 2" << endl;
 	intList.Insert(2, 3);
 	intList.PrintList();
