@@ -97,11 +97,13 @@ void TemplateLinkedList<TData>::Insert(int index, TData value) {
 		return;
 	}
 	else if (index == 0) {
-		PushFront(std::move(value));
+		TData addition = std::move(value);
+		PushFront(addition);
 		return;
 	}
 	else if (index == (mSize - 1)) {
-		PushBack(std::move(value));
+		TData addition = std::move(value);
+		PushBack(addition);
 		return;
 	}
 	auto newNode = std::make_unique<Node>(value);
