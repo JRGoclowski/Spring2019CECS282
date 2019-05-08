@@ -32,7 +32,7 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 		}
 	}
 	if (possMoves.empty()) {
-		possMoves.push_back(std::make_unique<OthelloMove>(BoardPosition(-1, -1));
+		possMoves.push_back(std::make_unique<OthelloMove>(BoardPosition(-1, -1)));
 	}
 	return std::move(possMoves);
 }
