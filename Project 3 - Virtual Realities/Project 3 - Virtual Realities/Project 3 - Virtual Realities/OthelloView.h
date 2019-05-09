@@ -27,7 +27,7 @@ public:
 	// of the format (r, c) and constructing a corresponding Move object. Yields
 	// ownership of the created Move.
 	// You can assume that the string contains a valid move format.
-	std::unique_ptr<OthelloMove> ParseMove(const std::string &strFormat) override;
+	std::unique_ptr<GameMove> ParseMove(const std::string &move) const override;
 
 
 	// Outputting a View object causes it to print its owned Board to the output stream.

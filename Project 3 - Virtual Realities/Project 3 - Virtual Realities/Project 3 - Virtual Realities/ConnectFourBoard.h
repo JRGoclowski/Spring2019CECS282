@@ -16,12 +16,13 @@ private:
 	friend class ConnectFourView;
 
 	void CheckForWinner();
+
 	bool InBounds(BoardPosition p) {
 		return p.InBounds(mBoard.size(), mBoard[0].size());
 	}
 
 	inline Player GetPlayerAtPosition(BoardPosition position) const {
-		return mBoard[position.GetRow()][position.GetCol()];
+		return mBoard[position.getRow()][position.getColumn()];
 	}
 
 public:

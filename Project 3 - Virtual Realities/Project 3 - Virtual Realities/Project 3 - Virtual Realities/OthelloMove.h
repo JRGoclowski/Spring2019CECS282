@@ -56,7 +56,7 @@ public:
 	Compares two OthelloMove objects for equality. Two moves are equal if they
 	have the same position.
 	*/
-	bool operator==(const OthelloMove &rhs) const override;
+	bool operator==(const GameMove &rhs) const override;
 	
 	/*
 	Converts the OthelloMove into a string representation, one that could be

@@ -55,15 +55,20 @@ public:
 	/*
 	Gets the current player. (The next player to make a move.)
 	*/
-	inline Player GetNextPlayer() const { 
-		return mNextPlayer; 
+	inline int GetCurrentPlayer() const { 
+		if (mNextPlayer == Player::BLACK) {
+			return 1;
+		}
+		else {
+			return -1;
+		}
 	}
 
 	/*
 	Accesses the board's vector of applied moves, in FILO order. (The most-recent
 	move is last in the vector.)
 	*/
-	inline const std::vector<std::unique_ptr<OthelloMove>> & GetMoveHistory() const {
+	inline const std::vector<std::unique_ptr<GameMove>> & GetMoveHistory() const {
 		return mHistory;
 	}
 
@@ -71,9 +76,11 @@ public:
 	Gets a value indicating who is winning the game, and by how many pieces:
 	positive for Black, negative for White.
 	*/
-	inline int GetValue() const {
+	inline int GetValue() const override {
 		return mValue;
 	}
+
+	bool IsFinished() const override;
 
 	static const int BOARD_SIZE = 8;
 
@@ -88,10 +95,12 @@ private:
 	Player mNextPlayer;
 
 	// A history of moves applied to the board.
-	std::vector<std::unique_ptr<OthelloMove>> mHistory;
+	std::vector<std::unique_ptr<GameMove>> mHistory;
 	
 	// The current value of the board. Updates after every apply/undo.
 	int mValue;
+
+	int mMoveCount;
 
 	// Returns true if the given position is in the bounds of the board.
 	inline bool InBounds(BoardPosition p) const { 

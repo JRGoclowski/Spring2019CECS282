@@ -1,7 +1,7 @@
 #include "OthelloBoard.h"
 
 
-OthelloBoard::OthelloBoard() :mBoard {Player::EMPTY} , mValue(0), mNextPlayer(Player::BLACK) {
+OthelloBoard::OthelloBoard() :mBoard {Player::EMPTY} , mValue(0), mMoveCount(0), mNextPlayer(Player::BLACK) {
 	mBoard[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2) - 1] = Player::WHITE ;
 	mBoard[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2)] = Player::BLACK;
 	mBoard[(BOARD_SIZE / 2)][(BOARD_SIZE / 2) - 1] = Player::BLACK;
@@ -10,8 +10,8 @@ OthelloBoard::OthelloBoard() :mBoard {Player::EMPTY} , mValue(0), mNextPlayer(Pl
 }
 
 
-std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const {
-	auto possMoves = std::vector<std::unique_ptr<OthelloMove>>();
+std::vector<std::unique_ptr<GameMove>> OthelloBoard::GetPossibleMoves() const {
+	auto possMoves = std::vector<std::unique_ptr<GameMove>>();
 	for (BoardPosition currentPos : BoardPosition::GetRectangularPositions(BOARD_SIZE, BOARD_SIZE)) {
 		if (GetPlayerAtPosition(currentPos) != Player::EMPTY) {
 			continue;
@@ -37,26 +37,28 @@ std::vector<std::unique_ptr<OthelloMove>> OthelloBoard::GetPossibleMoves() const
 	return std::move(possMoves);
 }
 
-void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
-	if (!(m->IsPass())) {
+void OthelloBoard::ApplyMove(std::unique_ptr<GameMove> m) {
+	OthelloMove* move = dynamic_cast<OthelloMove*>(m.get());
+	if (!(move->IsPass())) {
+		mMoveCount++;
 		for (BoardDirection currentDir : BoardDirection::CARDINAL_DIRECTIONS) {
 			int flipCounter = 0;
-			auto moveWalker = m->mPosition + currentDir;
+			auto moveWalker = move->mPosition + currentDir;
 			while (InBounds(moveWalker) && PositionIsEnemy(moveWalker, mNextPlayer)) {
 				flipCounter++;
 				moveWalker = moveWalker + currentDir;
 			}
 			if (InBounds(moveWalker) && GetPlayerAtPosition(moveWalker) == mNextPlayer && flipCounter > 0) {
-				auto applyWalker = m->mPosition;
+				auto applyWalker = move->mPosition;
 				while (!(applyWalker + currentDir == moveWalker)) {
 					applyWalker = applyWalker + currentDir;
 					mBoard[applyWalker.getRow()][applyWalker.getColumn()] = mNextPlayer;
 					mValue = mValue + 2 * (static_cast <int> (mNextPlayer));
 				}
-				m->AddFlipSet(OthelloMove::FlipSet::FlipSet((char)flipCounter, currentDir));
+				move->AddFlipSet(OthelloMove::FlipSet::FlipSet((char)flipCounter, currentDir));
 			}
 		}
-		mBoard[m->mPosition.getRow()][m->mPosition.getColumn()] = mNextPlayer;
+		mBoard[move->mPosition.getRow()][move->mPosition.getColumn()] = mNextPlayer;
 		mValue = mValue + static_cast <int> (mNextPlayer);
 	}
 	(mNextPlayer == Player::BLACK) ? (mNextPlayer = Player::WHITE) : (mNextPlayer = Player::BLACK);
@@ -64,10 +66,10 @@ void OthelloBoard::ApplyMove(std::unique_ptr<OthelloMove> m) {
 }
 
 void OthelloBoard::UndoLastMove() {
-	auto lastMove = **(mHistory.rbegin());
-	if (!(lastMove.IsPass())) {
-		for (OthelloMove::FlipSet currentFlips : lastMove.mFlips) {
-			BoardPosition currentPos = lastMove.mPosition + currentFlips.mDirection;
+	auto lastMove = dynamic_cast<OthelloMove*>(&(**mHistory.rbegin()));
+	if (!(lastMove->IsPass())) {
+		for (OthelloMove::FlipSet currentFlips : lastMove->mFlips) {
+			BoardPosition currentPos = lastMove->mPosition + currentFlips.mDirection;
 			for (int i = 0; i < (int)currentFlips.mFlipCount; i++) {
 				mBoard[currentPos.getRow()][currentPos.getColumn()] = mNextPlayer;
 				mValue = mValue + (2 * (static_cast <int> (mNextPlayer)));
@@ -75,9 +77,25 @@ void OthelloBoard::UndoLastMove() {
 			}
 		}
 		mValue = mValue + (static_cast <int> (mNextPlayer));
-		mBoard[lastMove.mPosition.getRow()][lastMove.mPosition.getColumn()] = Player::EMPTY;
+		mBoard[lastMove->mPosition.getRow()][lastMove->mPosition.getColumn()] = Player::EMPTY;
 		
 	}
 	(mNextPlayer == Player::BLACK) ? (mNextPlayer = Player::WHITE) : (mNextPlayer = Player::BLACK);
 	mHistory.pop_back();	
+}
+
+bool OthelloBoard::IsFinished() const {
+	if (mMoveCount >= 60) {
+		return true;
+	}
+	OthelloMove* lastMove = dynamic_cast<OthelloMove*>(&(**mHistory.rbegin()));
+	if (lastMove->IsPass()) {
+		auto secondToLast = mHistory.rbegin();
+		secondToLast++;
+		OthelloMove* secondLastMove = dynamic_cast<OthelloMove*>(&(**secondToLast));
+		if (secondLastMove->IsPass()) {
+			return true;
+		}
+	}
+	return false;
 }

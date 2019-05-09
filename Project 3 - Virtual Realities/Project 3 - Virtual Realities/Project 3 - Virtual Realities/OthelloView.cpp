@@ -17,7 +17,7 @@ void OthelloView::PrintBoard(std::ostream & s) const {
 	for (int row = 1; row < 9; row++) {
 		s << title[row];
 		for (int column = 0; column < 8; column++) {
-			playerAt = mOthelloBoard->mBoard[row - 1][column];
+			playerAt = mOthelloBoard->mBoard[(row - 1)][column];
 			if (playerAt == OthelloBoard::Player::EMPTY) {
 				s << '.';
 			}
@@ -32,7 +32,7 @@ void OthelloView::PrintBoard(std::ostream & s) const {
 	}
 }
 
-std::unique_ptr<OthelloMove> OthelloView::ParseMove(const std::string & strFormat) {
+std::unique_ptr<GameMove> OthelloView::ParseMove(const std::string & strFormat) const {
 	int sRow, sCol;
 	char openParen, comma, closeParen;
 	istringstream passedString(strFormat);
@@ -42,7 +42,7 @@ std::unique_ptr<OthelloMove> OthelloView::ParseMove(const std::string & strForma
 
 std::ostream & operator<<(std::ostream & lhs, const OthelloView & rhs) {
 	rhs.PrintBoard(lhs);
-	(rhs.mOthelloBoard->GetNextPlayer() == OthelloBoard::Player::BLACK) ? (lhs << "Black") : (lhs << "White");
+	(rhs.mOthelloBoard->GetCurrentPlayer() == 1) ? (lhs << "Black") : (lhs << "White");
 	return lhs << "'s Move";
 }
 

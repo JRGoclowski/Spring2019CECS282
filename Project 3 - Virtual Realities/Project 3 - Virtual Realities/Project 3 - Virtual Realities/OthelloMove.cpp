@@ -3,8 +3,9 @@
 # include <sstream>
 
 
-bool OthelloMove::operator==(const OthelloMove & rhs) {
-	return ((mPosition.getColumn() == rhs.mPosition.getColumn()) && (mPosition.getRow() == rhs.mPosition.getRow()));
+bool OthelloMove::operator==(const GameMove & rhs) const{
+	const OthelloMove* move = dynamic_cast<const OthelloMove*> (&rhs);
+	return ((mPosition.getColumn() == move->mPosition.getColumn()) && (mPosition.getRow() == move->mPosition.getRow()));
 }
 
 // TODO check this is the correct format

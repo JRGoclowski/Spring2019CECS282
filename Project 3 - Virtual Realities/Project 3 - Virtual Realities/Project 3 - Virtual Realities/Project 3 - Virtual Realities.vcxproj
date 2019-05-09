@@ -123,6 +123,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoardDirection.h" />
+    <ClInclude Include="BoardPosition.h" />
+    <ClInclude Include="ConnectFourBoard.h" />
+    <ClInclude Include="ConnectFourMove.h" />
+    <ClInclude Include="ConnectFourView.h" />
+    <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="GameMove.h" />
+    <ClInclude Include="GameView.h" />
+    <ClInclude Include="OthelloBoard.h" />
+    <ClInclude Include="OthelloMove.h" />
+    <ClInclude Include="OthelloView.h" />
+    <ClInclude Include="TicTacToeBoard.h" />
+    <ClInclude Include="TicTacToeMove.h" />
+    <ClInclude Include="TicTacToeView.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BoardDirection.cpp" />
+    <ClCompile Include="BoardPosition.cpp" />
+    <ClCompile Include="ConnectFourBoard.cpp" />
+    <ClCompile Include="ConnectFourMove.cpp" />
+    <ClCompile Include="ConnectFourView.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="OthelloBoard.cpp" />
+    <ClCompile Include="OthelloMove.cpp" />
+    <ClCompile Include="OthelloView.cpp" />
+    <ClCompile Include="TicTacToeBoard.cpp" />
+    <ClCompile Include="TicTacToeMove.cpp" />
+    <ClCompile Include="TicTacToeView.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
