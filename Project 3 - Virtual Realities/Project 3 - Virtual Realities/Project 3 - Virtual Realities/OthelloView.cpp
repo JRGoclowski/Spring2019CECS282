@@ -40,6 +40,11 @@ std::unique_ptr<GameMove> OthelloView::ParseMove(const std::string & strFormat) 
 	return std::move(make_unique<OthelloMove>(BoardPosition(sRow, sCol)));
 }
 
+std::string OthelloView::GetPlayerString(int player) const
+{
+	return std::string();
+}
+
 std::ostream & operator<<(std::ostream & lhs, const OthelloView & rhs) {
 	rhs.PrintBoard(lhs);
 	(rhs.mOthelloBoard->GetCurrentPlayer() == 1) ? (lhs << "Black") : (lhs << "White");

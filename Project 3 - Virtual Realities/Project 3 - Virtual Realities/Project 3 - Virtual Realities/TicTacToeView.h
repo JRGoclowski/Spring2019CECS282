@@ -1,14 +1,21 @@
 #pragma once
 
 #include "GameView.h"
+#include "TicTacToeBoard.h"
+#include "TicTacToeMove.h"
+
 
 class TicTacToeView : public GameView {
 private:
+	std::shared_ptr<TicTacToeBoard> mTicTacToeBoard;
 
-	virtual void PrintBoard(std::ostream& s) const = 0;
+	void PrintBoard(std::ostream& s) const override;
 
 public:
 	
+	TicTacToeView(std::shared_ptr<TicTacToeBoard> b) : mTicTacToeBoard(b) {
+	}
+
 	friend std::ostream& operator<< (std::ostream& os, const GameView& v) {
 		v.PrintBoard(os);
 		return os;
