@@ -14,6 +14,10 @@ public:
 	TicTacToeMove(BoardPosition p) : mPosition(p) {
 	}
 
+	TicTacToeMove() : mPosition(-1, -1) {
+
+	}
+
 	operator std::string() const override;
 
 	bool operator==(const GameMove& rhs) const override;

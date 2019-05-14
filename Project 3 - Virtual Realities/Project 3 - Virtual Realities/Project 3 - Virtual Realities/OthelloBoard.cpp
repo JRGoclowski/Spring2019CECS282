@@ -78,7 +78,7 @@ void OthelloBoard::UndoLastMove() {
 		}
 		mValue = mValue + (static_cast <int> (mNextPlayer));
 		mBoard[lastMove->mPosition.getRow()][lastMove->mPosition.getColumn()] = Player::EMPTY;
-		
+		mMoveCount--;
 	}
 	(mNextPlayer == Player::BLACK) ? (mNextPlayer = Player::WHITE) : (mNextPlayer = Player::BLACK);
 	mHistory.pop_back();	

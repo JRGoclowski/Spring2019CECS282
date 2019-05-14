@@ -10,7 +10,7 @@ to support a game-agnostic main application.
 */
 class TicTacToeBoard : public GameBoard {
 public:
-	
+
 	enum class Player : char {
 		EMPTY = 0,
 		EX = 1,
@@ -38,7 +38,10 @@ public:
 		}
 	}
 
-	const std::vector<std::unique_ptr<GameMove>>& GetMoveHistory() const override;
+	inline const std::vector<std::unique_ptr<GameMove>>& GetMoveHistory() const override {
+		return mHistory;
+	}
+
 
 	static const int BOARD_SIZE = 3;
 
@@ -46,6 +49,8 @@ private:
 	friend class TicTacToeView;
 
 	std::array<std::array<Player, 3>, 3> mBoard;
+
+	std::vector<std::unique_ptr<GameMove>> mHistory;
 
 	Player mCurrentPlayer;
 
@@ -65,5 +70,7 @@ private:
 	}
 
 	bool isRow(BoardPosition pPosition, BoardDirection pDirection) const;
+
+	BoardPosition PartOfRow() const;
 };
 

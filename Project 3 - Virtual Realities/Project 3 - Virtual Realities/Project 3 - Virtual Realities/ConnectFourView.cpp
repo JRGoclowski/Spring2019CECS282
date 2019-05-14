@@ -29,6 +29,9 @@ void ConnectFourView::PrintBoard(std::ostream & s) const {
 
 unique_ptr<GameMove> ConnectFourView::ParseMove(const string & move) const {
 	// Assumes the move is just a single capital letter.
+	if (move == "pass") {
+		return std::move(make_unique<ConnectFourMove>());
+	}
 	char letter = move[0];
 	int column = letter - 'A';
 	return make_unique<ConnectFourMove>(column);

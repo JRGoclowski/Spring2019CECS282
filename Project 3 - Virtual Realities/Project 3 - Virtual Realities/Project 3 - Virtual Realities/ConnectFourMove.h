@@ -6,6 +6,7 @@ private:
 	friend class ConnectFourBoard;
 public:
 	ConnectFourMove(int column);
+	ConnectFourMove();
 
 	// Inherited via GameMove
 	virtual operator std::string() const override;

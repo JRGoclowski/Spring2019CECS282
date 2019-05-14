@@ -10,6 +10,9 @@
 using namespace std;
 
 std::unique_ptr<GameMove> TicTacToeView::ParseMove(const std::string& move) const {
+	if (move == "pass") {
+		return std::move(make_unique<TicTacToeMove>());
+	}
 	int sRow, sCol;
 	char openParen, comma, closeParen;
 	istringstream passedString(move);
@@ -26,16 +29,16 @@ void TicTacToeView::PrintBoard(std::ostream& s) const {
 	s << endl;
 	for (int row = 1; row < 4; row++) {
 		s << title[row];
-		for (int column = 0; column < 8; column++) {
+		for (int column = 0; column < 3; column++) {
 			playerAt = mTicTacToeBoard->mBoard[(row - 1)][column];
-			if (playerAt == OthelloBoard::Player::EMPTY) {
+			if (playerAt == TicTacToeBoard::Player::EMPTY) {
 				s << '.';
 			}
-			else if (playerAt == OthelloBoard::Player::BLACK) {
-				s << 'B';
+			else if (playerAt == TicTacToeBoard::Player::EX) {
+				s << 'X';
 			}
-			else if (playerAt == OthelloBoard::Player::WHITE) {
-				s << 'W';
+			else if (playerAt == TicTacToeBoard::Player::OH) {
+				s << 'O';
 			}
 		}
 		s << endl;
@@ -43,6 +46,5 @@ void TicTacToeView::PrintBoard(std::ostream& s) const {
 }
 
 std::string TicTacToeView::GetPlayerString(int player) const {
-	
-	return std::string();
+	return player == 1 ? "X" : "O";
 }

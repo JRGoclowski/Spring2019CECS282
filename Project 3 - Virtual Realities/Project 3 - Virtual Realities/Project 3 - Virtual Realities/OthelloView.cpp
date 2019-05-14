@@ -33,6 +33,9 @@ void OthelloView::PrintBoard(std::ostream & s) const {
 }
 
 std::unique_ptr<GameMove> OthelloView::ParseMove(const std::string & strFormat) const {
+	if (strFormat == "pass") {
+		return std::move(make_unique<OthelloMove>());
+	}
 	int sRow, sCol;
 	char openParen, comma, closeParen;
 	istringstream passedString(strFormat);
@@ -40,10 +43,6 @@ std::unique_ptr<GameMove> OthelloView::ParseMove(const std::string & strFormat) 
 	return std::move(make_unique<OthelloMove>(BoardPosition(sRow, sCol)));
 }
 
-std::string OthelloView::GetPlayerString(int player) const
-{
-	return std::string();
-}
 
 std::ostream & operator<<(std::ostream & lhs, const OthelloView & rhs) {
 	rhs.PrintBoard(lhs);
@@ -53,4 +52,8 @@ std::ostream & operator<<(std::ostream & lhs, const OthelloView & rhs) {
 
 std::ostream & operator<<(std::ostream & lhs, const OthelloMove & rhs) {
 	return lhs << string(rhs);
+}
+
+std::string OthelloView::GetPlayerString(int player) const {
+	return player == 1 ? "Black" : "White";
 }

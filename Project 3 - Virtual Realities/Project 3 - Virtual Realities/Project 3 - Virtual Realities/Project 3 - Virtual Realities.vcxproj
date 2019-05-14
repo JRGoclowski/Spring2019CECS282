@@ -144,6 +144,7 @@
     <ClCompile Include="ConnectFourBoard.cpp" />
     <ClCompile Include="ConnectFourMove.cpp" />
     <ClCompile Include="ConnectFourView.cpp" />
+    <ClCompile Include="Functional.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OthelloBoard.cpp" />
     <ClCompile Include="OthelloMove.cpp" />

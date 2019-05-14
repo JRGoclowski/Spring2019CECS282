@@ -15,11 +15,6 @@ public:
 	
 	TicTacToeView(std::shared_ptr<TicTacToeBoard> b) : mTicTacToeBoard(b) {
 	}
-
-	friend std::ostream& operator<< (std::ostream& os, const GameView& v) {
-		v.PrintBoard(os);
-		return os;
-	}
 		
 	std::unique_ptr<GameMove> ParseMove(const std::string& move) const override;
 		

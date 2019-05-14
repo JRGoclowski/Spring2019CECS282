@@ -9,6 +9,8 @@ and comparisons.
 */
 class GameMove {
 public:
+
+
    /*
    Converts the GameMove to a string for output.
    */

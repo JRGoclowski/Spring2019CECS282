@@ -3,9 +3,13 @@
 using namespace std;
 
 ConnectFourMove::ConnectFourMove(int column) : mColumn(column) {}
+ConnectFourMove::ConnectFourMove() : mColumn(-1) {}
 
 ConnectFourMove::operator std::string() const {
 	// Convert the column to a letter from A to G.
+	if (mColumn == -1) {
+		return "pass";
+	}
 	return string(1, (char)('A' + mColumn));
 }
 
